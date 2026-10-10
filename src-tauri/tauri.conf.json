@@ -1,0 +1,35 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "Remox",
+  "version": "0.2.0",
+  "identifier": "com.remox.desktop",
+  "build": {
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build",
+    "devUrl": "http://127.0.0.1:1420",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "windows": [{
+      "label": "main",
+      "title": "Remox — Music to your measure",
+      "width": 1280,
+      "height": 860,
+      "minWidth": 860,
+      "minHeight": 650,
+      "backgroundColor": "#141715"
+    }],
+    "security": {
+      "csp": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src ipc: http://ipc.localhost; media-src 'self' asset: http://asset.localhost; object-src 'none'; base-uri 'self'",
+      "assetProtocol": { "enable": true, "scope": [] }
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": ["nsis"],
+    "shortDescription": "Musical duration remixing on your computer",
+    "icon": ["icons/icon.ico"],
+    "resources": { "resources/media-tools/": "media-tools/" },
+    "windows": { "nsis": { "displayLanguageSelector": false } }
+  }
+}

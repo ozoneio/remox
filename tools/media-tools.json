@@ -1,0 +1,38 @@
+{
+  "downloads": [
+    {
+      "name": "yt-dlp.exe",
+      "url": "https://github.com/yt-dlp/yt-dlp/releases/download/2026.08.19/yt-dlp.exe",
+      "sha256": "66674953fe251b89f4d08c5f0e35e0728679bd67ab3d7d05c0562af101dd3e7a"
+    },
+    {
+      "name": "YT-DLP-LICENSE.txt",
+      "url": "https://raw.githubusercontent.com/yt-dlp/yt-dlp/2026.08.19/LICENSE",
+      "sha256": "7e12e5df4bae12cb21581ba157ced20e1986a0508dd10d0e8a4ab9a4cf94e85c"
+    },
+    {
+      "name": "DENO-LICENSE.txt",
+      "url": "https://raw.githubusercontent.com/denoland/deno/v2.9.7/LICENSE.md",
+      "sha256": "f62497fffecc0852960c8d3e6934b9db86d16396e9b604072e923892cae3a588"
+    }
+  ],
+  "archives": [
+    {
+      "name": "deno-2.9.7.zip",
+      "url": "https://github.com/denoland/deno/releases/download/v2.9.7/deno-x86_64-pc-windows-msvc.zip",
+      "sha256": "a0c3101b4158d1dfb7d6a78a7bf0f3de80c96bb423c152beec8beb22786f2238",
+      "entries": [{ "path": "deno.exe", "name": "deno.exe" }]
+    },
+    {
+      "name": "ffmpeg-9.0.2.zip",
+      "url": "https://github.com/GyanD/codexffmpeg/releases/download/9.0.2/ffmpeg-9.0.2-essentials_build.zip",
+      "sha256": "60f467265b1e312373dbcd92200c2618a74850f98d3d078e94296bb3fa2047ba",
+      "entries": [
+        { "path": "ffmpeg-9.0.2-essentials_build/bin/ffmpeg.exe", "name": "ffmpeg.exe" },
+        { "path": "ffmpeg-9.0.2-essentials_build/bin/ffprobe.exe", "name": "ffprobe.exe" },
+        { "path": "ffmpeg-9.0.2-essentials_build/LICENSE", "name": "FFMPEG-LICENSE.txt" },
+        { "path": "ffmpeg-9.0.2-essentials_build/README.txt", "name": "FFMPEG-README.txt" }
+      ]
+    }
+  ]
+}

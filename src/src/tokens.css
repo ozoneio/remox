@@ -1,0 +1,19 @@
+:root {
+  --font: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --mono: "Cascadia Code", "SFMono-Regular", Consolas, monospace;
+  --background: #181818;
+  --panel: #262626;
+  --panel-header: #303030;
+  --border: #414141;
+  --text: #dedede;
+  --muted: #a0a0a0;
+  --accent: #67b6ec;
+  --control: #1c1c1c;
+  --control-track: #484848;
+  --waveform-background: #101310;
+  --waveform: #63c975;
+  --waveform-played: #a3e39a;
+  --waveform-grid: #293229;
+  --waveform-join: #d7b96c;
+  --playhead: #efc75e;
+}

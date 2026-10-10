@@ -1,0 +1,29 @@
+{
+  "name": "remox-desktop",
+  "version": "0.2.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --config vite.config.ts",
+    "build": "tsc -p src/tsconfig.json && vite build --config vite.config.ts",
+    "desktop": "pnpm prepare:media && tauri dev",
+    "desktop:build": "pnpm prepare:media && tauri build",
+    "prepare:media": "pwsh -NoProfile -NonInteractive -File tools/prepare-media-tools.ps1",
+    "tauri": "tauri",
+    "check:desktop": "tsc -p src/tsconfig.json --noEmit",
+    "test:core": "cargo test --manifest-path src-tauri/Cargo.toml --no-default-features",
+    "test:desktop": "node tools/desktop-smoke.mjs",
+    "test:youtube": "node tools/desktop-youtube-smoke.mjs",
+    "test": "pnpm test:core",
+    "check": "pnpm check:desktop"
+  },
+  "dependencies": {
+    "@tauri-apps/api": "^2.10.1"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.63.0",
+    "@tauri-apps/cli": "^2.10.1",
+    "typescript": "^5.9.3",
+    "vite": "^7.3.1"
+  }
+}

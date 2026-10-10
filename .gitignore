@@ -1,11 +1,9 @@
-.venv/
-__pycache__/
-*.py[cod]
-*.egg-info/
 build/
 dist/
-.pytest_cache/
-output/
 
-# generated audio
-tests/fixtures/
+# desktop dependencies and generated build artifacts
+node_modules/
+.pnpm-store/
+src-tauri/target/
+src-tauri/gen/
+src-tauri/resources/media-tools/
