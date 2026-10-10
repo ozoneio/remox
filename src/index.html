@@ -3,76 +3,63 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#262626" />
+    <meta name="theme-color" content="#202020" />
     <meta name="color-scheme" content="dark" />
     <title>Remox — Audio workspace</title>
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='8' fill='%23262626'/%3E%3Cpath d='M16 27v10m8-19v28m8-34v40m8-30v20m8-15v10' stroke='%2363c975' stroke-width='5' stroke-linecap='round'/%3E%3C/svg%3E" />
   </head>
   <body>
     <div class="app-shell">
-      <header class="app-header">
-        <div class="wordmark"><svg viewBox="0 0 28 28" aria-hidden="true"><path d="M3 11v6m5-12v18m6-21v24m6-19v14m5-10v6" /></svg><span>Remox</span></div>
-        <span class="app-title">Audio workspace</span>
-        <div class="privacy-note"><span class="status-dot"></span>Local processing</div>
-      </header>
-      <div class="workspace-toolbar">
-        <span class="workspace-label">WORKSPACE</span><h1>Duration remix</h1><span class="toolbar-divider"></span><span class="workspace-description">Beat-aware audio editing</span>
-        <span class="toolbar-shortcut"><kbd>Space</kbd> Play / pause</span>
-      </div>
       <div id="notification" class="notification" role="status" aria-live="polite" hidden><span id="notification-message"></span><button id="dismiss-notification" type="button" aria-label="Dismiss notification">×</button></div>
-      <main class="workspace-grid">
-        <section class="panel source-panel" aria-labelledby="source-heading">
-          <div class="panel-heading"><h2 id="source-heading">Files</h2><span class="panel-kind">Source audio</span></div>
-          <div class="source-actions">
-            <button id="import-audio" data-testid="import-audio" class="button button-subtle" type="button"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M2 6h6l2 2h8v9H2zM2 6V3h6l2 3" /></svg><span id="import-label">Import audio</span></button>
-            <button id="import-youtube" data-testid="import-youtube" class="button button-subtle" type="button" aria-haspopup="dialog" aria-controls="youtube-dialog"><svg viewBox="0 0 20 20" aria-hidden="true"><rect x="2" y="4" width="16" height="12" rx="2"/><path d="m8 7 5 3-5 3z"/></svg>YouTube</button>
-          </div>
-          <div class="file-list-heading"><span>Name</span><span>Audio</span></div>
-          <div id="source-empty" class="source-empty"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M8 3h11l6 6v20H8zM19 3v7h6M13 19v-5l7-2v7"/><ellipse cx="11" cy="21" rx="2" ry="1.5"/><ellipse cx="18" cy="20" rx="2" ry="1.5"/></svg><strong>No source file</strong><p>Import audio from your computer<br />or use a YouTube video link.</p></div>
-          <div id="source-content" hidden>
-            <div class="file-row"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 7v6m4-9v12m4-14v16m4-12v8m3-5v2"/></svg><span id="track-name" class="track-name"></span><span class="file-selected" aria-label="Selected source">●</span></div>
-            <div id="track-format" class="track-format"></div>
-            <div class="preview-heading"><h3>Source waveform</h3><span id="source-tempo" class="tempo-chip"></span></div>
-            <div class="waveform-frame source-waveform-frame"><canvas id="source-waveform" data-testid="source-waveform" role="slider" tabindex="0" aria-label="Seek source track" aria-valuemin="0" aria-valuemax="0" aria-valuenow="0"></canvas></div>
-            <div class="waveform-caption"><span>ORIGINAL</span><span id="source-duration-caption"></span></div>
-            <div class="player-controls source-player"><button id="play-source" data-testid="play-source" class="play-button" type="button" aria-label="Play source track" disabled></button><span class="playback-time"><span id="source-current">0:00</span><span class="time-separator">/</span><span id="source-duration">0:00</span></span></div>
-          </div>
-          <div class="source-guide"><h3>Working with audio</h3><ol><li>Import your source track.</li><li>Set the duration and generate a remix.</li><li>Preview the joins, then export WAV.</li></ol><p>Click a waveform to seek. Use the arrow keys for precise playback positioning.</p></div>
-          <div class="panel-footer"><span class="status-dot"></span>Original audio is preserved</div>
-        </section>
+      <main class="workspace-grid" id="workspace-grid">
+        <aside class="workspace-sidebar" id="workspace-sidebar" aria-label="Source audio and remix properties">
+          <section class="panel source-panel" aria-labelledby="source-heading">
+            <div class="panel-heading"><h2 id="source-heading">Files</h2><span id="source-duration-caption" class="panel-kind"></span></div>
+            <div class="source-actions">
+              <button id="import-audio" data-testid="import-audio" class="button button-subtle" type="button"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M2 6h6l2 2h8v9H2zM2 6V3h6l2 3" /></svg><span id="import-label">Import audio</span></button>
+              <button id="import-youtube" data-testid="import-youtube" class="button button-subtle" type="button" aria-haspopup="dialog" aria-controls="youtube-dialog"><svg viewBox="0 0 20 20" aria-hidden="true"><rect x="2" y="4" width="16" height="12" rx="2"/><path d="m8 7 5 3-5 3z"/></svg>YouTube</button>
+            </div>
+            <div id="source-empty" class="source-empty"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M8 3h11l6 6v20H8zM19 3v7h6M13 19v-5l7-2v7"/><ellipse cx="11" cy="21" rx="2" ry="1.5"/><ellipse cx="18" cy="20" rx="2" ry="1.5"/></svg><strong>No source file</strong><p>Import audio from your computer<br />or use a YouTube video link.</p></div>
+            <div id="source-content" hidden>
+              <div class="file-row"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 7v6m4-9v12m4-14v16m4-12v8m3-5v2"/></svg><span id="track-name" class="track-name"></span><span class="file-selected" aria-label="Selected source">●</span></div>
+              <div id="track-format" class="track-format"></div>
+              <div class="waveform-frame source-waveform-frame"><canvas id="source-waveform" data-testid="source-waveform" role="slider" tabindex="0" aria-label="Seek source track" aria-valuemin="0" aria-valuemax="0" aria-valuenow="0"></canvas></div>
+              <div class="preview-heading"><div class="player-controls source-player"><button id="play-source" data-testid="play-source" class="play-button" type="button" aria-label="Play source track" disabled></button><span class="playback-time"><span id="source-current">0:00</span><span class="time-separator">/</span><span id="source-duration">0:00</span></span></div><span id="source-tempo" class="tempo-chip"></span></div>
+            </div>
+          </section>
+          <section class="panel settings-panel" aria-labelledby="settings-heading">
+            <div class="panel-heading"><h2 id="settings-heading">Remix properties</h2><svg class="panel-symbol" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14M7 3v4M13 8v4M8 13v4"/></svg></div>
+            <div class="settings-body">
+              <fieldset id="settings-fields" disabled>
+                <div class="property-section"><div class="target-section"><label for="target-duration">Target duration</label><div class="duration-input-wrap"><input id="target-duration" data-testid="target-duration" type="text" value="1:00" inputmode="decimal" autocomplete="off" spellcheck="false" aria-describedby="target-help" /><span class="duration-unit">MIN : SEC</span></div><div class="target-help" id="target-help">Use mm:ss or seconds</div></div><div class="number-setting"><label for="maximum-slack">Maximum slack</label><div class="number-input-wrap"><input id="maximum-slack" data-testid="maximum-slack" type="number" min="0" max="120" step="0.1" value="2" /><span>sec</span></div></div></div>
+                <div class="property-section"><h3>Arrangement</h3><div class="range-setting"><div class="setting-title"><label for="edit-length">Edit length</label><span id="edit-length-value" class="setting-value">Balanced</span></div><input id="edit-length" data-testid="edit-length" type="range" min="0" max="100" step="1" value="50" /><div class="range-labels"><span>Short edits</span><span>Long passages</span></div></div><div class="number-setting"><label for="minimum-beats">Minimum segment</label><div class="number-input-wrap"><input id="minimum-beats" data-testid="minimum-beats" type="number" min="1" max="128" step="1" value="8" /><span>beats</span></div></div></div>
+                <div class="property-section"><h3>Transitions</h3><div class="range-setting"><div class="setting-title"><label for="feature-balance">Match by</label><span id="feature-balance-value" class="setting-value">Balanced</span></div><input id="feature-balance" data-testid="feature-balance" type="range" min="0" max="100" step="1" value="50" /><div class="range-labels"><span>Timbre</span><span>Harmony</span></div></div><div class="number-setting"><label for="crossfade">Crossfade</label><div class="number-input-wrap"><input id="crossfade" data-testid="crossfade" type="number" min="0" max="2000" step="10" value="80" /><span>ms</span></div></div></div>
+              </fieldset>
+              <button id="generate-remix" data-testid="generate-remix" class="button button-primary generate-button" type="button" disabled><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h5l4 10h5M3 15h5L12 5h5m-3-3 3 3-3 3m0 4 3 3-3 3"/></svg><span id="generate-label">Generate remix</span></button><p class="generation-note" id="generation-note">Import a track to get started.</p>
+            </div>
+          </section>
+        </aside>
         <section class="panel arrangement-panel" aria-labelledby="arrangement-heading">
-          <div class="panel-heading editor-heading"><h2 id="arrangement-heading">Editor</h2><span class="editor-mode">Waveform</span><span class="arrangement-badge" id="arrangement-badge">NO ARRANGEMENT</span></div>
-          <div id="output-empty" class="output-empty"><div class="empty-editor-icon" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M5 21v6m6-14v22m7-29v36m6-24v12m6-20v28m7-25v22m6-15v8"/></svg></div><h3 id="empty-title">No arrangement loaded</h3><p id="empty-description">Import a source file, then set a target duration in Remix properties.</p><span class="empty-editor-caption">WAVEFORM EDITOR</span></div>
+          <div class="panel-heading editor-heading"><h2 id="arrangement-heading">Editor</h2><span class="editor-mode">Waveform</span><span class="arrangement-badge" id="arrangement-badge">No arrangement</span></div>
+          <div id="output-empty" class="output-empty"><div class="empty-editor-icon" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M5 21v6m6-14v22m7-29v36m6-24v12m6-20v28m7-25v22m6-15v8"/></svg></div><h3 id="empty-title">No arrangement loaded</h3><p id="empty-description">Import a source file, then set a target duration in Remix properties.</p><span class="empty-editor-caption">Waveform editor</span></div>
           <div id="output-busy" class="output-busy" role="status" aria-live="polite" hidden><div class="processing-bars" aria-hidden="true"><i></i><i></i><i></i><i></i></div><h3 id="busy-title">Rendering arrangement</h3><p id="busy-description">Matching musical passages and rendering your audio.</p><span class="processing-note">Processing on your device</span></div>
           <div id="output-content" hidden>
-            <div class="result-heading"><div><span class="result-label">ARRANGEMENT LENGTH</span><div class="result-duration" id="result-duration"></div></div><div class="result-target"><span>TARGET DURATION</span><strong id="result-target"></strong><small id="duration-difference"></small></div></div>
+            <div class="result-heading"><div><span class="result-label">Arrangement length</span><div class="result-duration" id="result-duration"></div></div><div class="result-target"><span>Target duration</span><strong id="result-target"></strong><small id="duration-difference"></small></div></div>
             <div class="output-waveform-wrap">
               <div class="timeline-scale" id="timeline-scale"></div>
               <div class="waveform-frame output-waveform-frame"><canvas id="output-waveform" data-testid="output-waveform" role="slider" tabindex="0" aria-label="Seek generated remix" aria-valuemin="0" aria-valuemax="0" aria-valuenow="0"></canvas><div class="amplitude-scale" aria-hidden="true"><span>1.0</span><span>0.5</span><span>0.0</span><span>−0.5</span><span>−1.0</span></div></div>
               <div class="segment-map" id="segment-map" aria-label="Source segments in playback order"></div>
-              <div class="waveform-caption output-caption"><span><i class="legend-dot"></i>SOURCE SEGMENTS</span><span id="segment-count"></span></div>
+              <div class="waveform-caption output-caption"><span><i class="legend-dot"></i>Source segments</span><span id="segment-count"></span></div>
             </div>
             <div class="player-controls output-player"><button id="restart-output" data-testid="restart-output" class="icon-button" type="button" aria-label="Restart generated remix"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 5v10M15 5 7 10l8 5z"/></svg></button><button id="play-output" data-testid="play-output" class="play-button" type="button" aria-label="Play generated remix" disabled></button><span class="playback-time"><span id="output-current">0:00</span><span class="time-separator">/</span><span id="output-duration">0:00</span></span><span class="player-hint"><kbd>Space</kbd> Play / pause</span></div>
-            <div class="result-stats"><div><span>EDIT POINTS</span><strong id="result-edits"></strong></div><div><span>TRACK TEMPO</span><strong id="result-tempo"></strong></div><div><span>SEGMENTS</span><strong id="result-segments"></strong></div></div>
+            <div class="result-stats"><div><span>Edit points</span><strong id="result-edits"></strong></div><div><span>Track tempo</span><strong id="result-tempo"></strong></div><div><span>Segments</span><strong id="result-segments"></strong></div></div>
             <div class="join-section"><div class="join-heading"><h3>Transitions</h3><span id="join-description">Preview each edit point</span></div><div id="join-list" class="join-list"></div></div>
             <div class="export-section"><div><strong>Export arrangement</strong><p>Lossless WAV · original sample rate</p></div><button id="export-remix" data-testid="export-remix" class="button button-export" type="button"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v10m-4-4 4 4 4-4M3 13v4h14v-4"/></svg>Export WAV</button></div>
           </div>
           <div class="arrangement-footer" id="arrangement-footer"><span class="status-dot"></span>Beat-aware edits · tempo preserved</div>
         </section>
-        <section class="panel settings-panel" aria-labelledby="settings-heading">
-          <div class="panel-heading"><h2 id="settings-heading">Remix properties</h2><svg class="panel-symbol" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14M7 3v4M13 8v4M8 13v4"/></svg></div>
-          <div class="settings-body">
-            <fieldset id="settings-fields" disabled>
-              <div class="property-section"><h3>Duration</h3><div class="target-section"><label for="target-duration">Target duration</label><div class="duration-input-wrap"><input id="target-duration" data-testid="target-duration" type="text" value="1:00" inputmode="decimal" autocomplete="off" spellcheck="false" aria-describedby="target-help" /><span class="duration-unit">MIN : SEC</span></div><div class="target-help" id="target-help">Minutes:seconds, or a number of seconds</div></div><div class="number-setting"><label for="maximum-slack">Maximum slack</label><div class="number-input-wrap"><input id="maximum-slack" data-testid="maximum-slack" type="number" min="0" max="120" step="0.1" value="2" /><span>sec</span></div></div></div>
-              <div class="property-section"><h3>Arrangement</h3><div class="range-setting"><div class="setting-title"><label for="edit-length">Edit length</label><span id="edit-length-value" class="setting-value">Balanced</span></div><input id="edit-length" data-testid="edit-length" type="range" min="0" max="100" step="1" value="50" /><div class="range-labels"><span>Short edits</span><span>Long passages</span></div></div><div class="number-setting"><label for="minimum-beats">Minimum segment</label><div class="number-input-wrap"><input id="minimum-beats" data-testid="minimum-beats" type="number" min="1" max="128" step="1" value="8" /><span>beats</span></div></div></div>
-              <div class="property-section"><h3>Transitions</h3><div class="range-setting"><div class="setting-title"><label for="feature-balance">Match by</label><span id="feature-balance-value" class="setting-value">Balanced</span></div><input id="feature-balance" data-testid="feature-balance" type="range" min="0" max="100" step="1" value="50" /><div class="range-labels"><span>Timbre</span><span>Harmony</span></div></div><div class="number-setting"><label for="crossfade">Crossfade</label><div class="number-input-wrap"><input id="crossfade" data-testid="crossfade" type="number" min="0" max="2000" step="10" value="80" /><span>ms</span></div></div></div>
-            </fieldset>
-            <button id="generate-remix" data-testid="generate-remix" class="button button-primary generate-button" type="button" disabled><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h5l4 10h5M3 15h5L12 5h5m-3-3 3 3-3 3m0 4 3 3-3 3"/></svg><span id="generate-label">Generate remix</span></button><p class="generation-note" id="generation-note">Import a track to get started.</p>
-          </div>
-          <div class="panel-footer">Audio is re-arranged at its original tempo</div>
-        </section>
       </main>
-      <footer class="app-footer"><span><span class="status-dot"></span>Remox · Duration remix workspace</span><span>WAV export · local audio processing</span></footer>
+      <footer class="app-footer"><span><span class="status-dot"></span>Original audio is preserved</span><span>WAV export · local audio processing</span></footer>
     </div>
     <dialog id="youtube-dialog" class="youtube-dialog" aria-labelledby="youtube-title" aria-describedby="youtube-help">
       <form id="youtube-form" novalidate>

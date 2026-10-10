@@ -1,19 +1,20 @@
 :root {
   --font: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
   --mono: "Cascadia Code", "SFMono-Regular", Consolas, monospace;
-  --background: #181818;
-  --panel: #262626;
-  --panel-header: #303030;
-  --border: #414141;
-  --text: #dedede;
-  --muted: #a0a0a0;
-  --accent: #67b6ec;
+  --background: #171717;
+  --panel: #252525;
+  --panel-header: #252525;
+  --border: #383838;
+  --text: #ececec;
+  --muted: #ababab;
+  --accent: #75baff;
+  --accent-button: #1473e6;
   --control: #1c1c1c;
-  --control-track: #484848;
-  --waveform-background: #101310;
-  --waveform: #63c975;
-  --waveform-played: #a3e39a;
-  --waveform-grid: #293229;
-  --waveform-join: #d7b96c;
-  --playhead: #efc75e;
+  --control-track: #4a4a4a;
+  --waveform-background: #141916;
+  --waveform: #76d38a;
+  --waveform-played: #b1e6ba;
+  --waveform-grid: #29372f;
+  --waveform-join: #83bfff;
+  --playhead: #e6e6e6;
 }

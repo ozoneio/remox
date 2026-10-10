@@ -229,7 +229,7 @@ function createWorkspace(): void {
     element("busy-title").textContent = state.job === "youtube" ? "Downloading audio…" : state.job === "import" ? "Analyzing source audio" : "Rendering arrangement";
     element("busy-description").textContent = state.job === "youtube" ? "Downloading your source audio and analyzing its musical structure." : state.job === "import" ? "Decoding your audio and analyzing its musical structure." : "Matching musical passages and rendering your audio.";
     const badge = element("arrangement-badge");
-    badge.textContent = state.job === "youtube" ? "IMPORTING" : busy ? "PROCESSING" : state.remix === null ? "NO ARRANGEMENT" : "RENDER COMPLETE";
+    badge.textContent = state.job === "youtube" ? "Importing" : busy ? "Processing" : state.remix === null ? "No arrangement" : "Render complete";
     badge.classList.toggle("ready", state.remix !== null && !busy);
     element("generation-note").textContent = !nativeRuntime ? "Open the desktop app to process local audio." : state.job === "youtube" ? "Downloading and analyzing your source audio…" : state.job === "import" ? "Analyzing the source track on your device…" : state.job === "generate" ? "Rendering your remix on your device…" : state.track === null ? "Import a track to get started." : "Beat-aware edits, rendered locally.";
     element("empty-title").textContent = state.invalidated ? "Arrangement needs rendering" : "No arrangement loaded";
@@ -328,7 +328,7 @@ function createWorkspace(): void {
     element("result-edits").textContent = String(remix.segments.length - 1);
     element("result-tempo").textContent = `${remix.tempoBpm.toFixed(1)} BPM`;
     element("result-segments").textContent = String(remix.segments.length);
-    element("segment-count").textContent = `${remix.segments.length} MUSICAL PASSAGES`;
+    element("segment-count").textContent = `${remix.segments.length} musical passages`;
     const scale = element("timeline-scale");
     scale.replaceChildren(...[0, .25, .5, .75, 1].map((fraction: number): HTMLSpanElement => {
       const label = document.createElement("span");
@@ -515,7 +515,7 @@ function createWorkspace(): void {
       targetSeconds(targetInput.value);
       targetInput.removeAttribute("aria-invalid");
       help.classList.remove("invalid");
-      help.textContent = "Minutes:seconds, or a number of seconds";
+      help.textContent = "Use mm:ss or seconds";
     } catch (error: unknown) {
       targetInput.setAttribute("aria-invalid", "true");
       help.classList.add("invalid");

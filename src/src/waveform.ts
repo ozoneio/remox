@@ -54,7 +54,7 @@ export function drawWaveform(canvas: HTMLCanvasElement, view: WaveformView): voi
     context.lineTo(width, y);
   }
   context.stroke();
-  const bars = Math.max(1, Math.floor(width / 2));
+  const bars = Math.max(1, Math.floor(width));
   const progress = Math.min(1, Math.max(0, view.currentSeconds / view.durationSeconds));
   context.fillStyle = colors.getPropertyValue("--waveform-grid");
   context.fillRect(0, height / 2, width, 1);
@@ -69,7 +69,7 @@ export function drawWaveform(canvas: HTMLCanvasElement, view: WaveformView): voi
     const x = (bar / bars) * width;
     const barHeight = Math.max(1, amplitude * (height - 14));
     context.fillStyle = x < progress * width ? playedColor : waveformColor;
-    context.fillRect(x, (height - barHeight) / 2, 1.5, barHeight);
+    context.fillRect(x, (height - barHeight) / 2, 1, barHeight);
   }
   view.segments.forEach((segment: Segment, index: number): void => {
     if (index === 0) return;
